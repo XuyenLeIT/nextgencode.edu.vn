@@ -1,0 +1,185 @@
+.header {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px #eeeeee solid;
+    align-items: center;
+    background: white;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.logo {
+    position: relative;
+    padding: 2px 8px;
+    border: 3px solid #FFA500;
+    border-radius: 10px;
+    color: #FFA500;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.highlight {
+font-weight: bold;
+font-size: 20px;
+}
+
+
+.menu-item {
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+.menu-item:hover {
+    cursor: pointer;
+    display: inline-block;
+    transform: scale(1.05);
+}
+
+
+.myModal {
+    position: relative;
+}
+.loading_none {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    z-index: 9999;
+    display: none;
+}
+.loading__active {
+    display: block;
+}
+/* Ẩn nội dung ban đầu */
+.lazy-content {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* Hiển thị nội dung khi đã tải xong và có hiệu ứng */
+.lazy-content.loaded {
+    opacity: 1;
+    animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px); /* Hiệu ứng slide từ dưới lên */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-home {
+    margin-top: 50px;
+    display: block;
+
+}
+.item-carousel{
+    margin: auto;
+    width: 90%;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    height: 100%;
+
+
+}
+.item-content{
+    width: 50%;
+}
+.image-carausel {
+    object-fit: cover;
+    width: 40%;
+    border-radius: 20px;
+    height: 100%;
+}
+.carousel-cell-home {
+    width: 100%;
+    height: 250px;
+    margin-right: 10px;
+    background: var(--primary-background);
+    background: linear-gradient(90deg, rgba(248,255,77,1) 42%, rgba(58,180,175,1) 84%, rgba(223,252,69,1) 100%);
+    border-radius: 30px;
+    counter-increment: carousel-cell;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .item-content{
+       display: none;
+    }
+    .item-carousel{
+        padding: 0;
+        width: 100%;
+    }
+    .image-carausel{
+        width: 100%;
+    }
+
+}
+.phone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+}
+
+.phone-number {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    animation: shake 1.5s infinite;
+}
+
+.phone-number:hover {
+    background-color: #0056b3;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+#timeline {
+    width: 400px;
+    height: 600px;
+    border: 1px solid lightgray;
+  }
+  .vis-label {
+    white-space: normal !important;
+    text-align: center;
+  }
+  .vis-item {
+    border: none;
+    background-color: transparent;
+  }
+  .vis-item .vis-item-content {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }

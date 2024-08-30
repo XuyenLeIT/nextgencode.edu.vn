@@ -1,0 +1,139 @@
+.knowledge{
+    margin-top: 50px;
+}
+
+.know-item {
+    width: 100%;
+    height: 220px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+}
+.image-top{
+    max-width: 80%;
+    max-height: 500px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+.know-item:hover {
+    cursor: pointer;
+}
+.know-item-info{
+    width: 70%;
+    text-align: left;
+}
+.know-image {
+    width: 30%;
+    height: 100%;
+    object-fit: contain;
+}
+.know__item-link {
+    text-decoration: none;
+    color: black;
+}
+
+
+.know-title {
+    font-weight: bold;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.know-date {
+    color: gray;
+    font-style: italic;
+    position: absolute;
+    bottom: -10;
+    left: 10;
+}
+.know-des {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* banner */
+.banner {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    border-radius: 10px;
+}
+
+.banner-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Đặt hình nền phía sau nội dung */
+    border-radius: 10px;
+}
+
+.banner-content {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    text-align: center;
+    animation: slideIn 1s ease-out;
+}
+
+banner-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    animation: fadeInUp 1s ease-out;
+}
+
+banner-content,banner-date,banner-promotion {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    animation: fadeInUp 1s 0.5s ease-out;
+}
+
+.banner-info {
+    margin-bottom: 20px;
+    font-size: 1em;
+    color: var(--primary-background);
+    animation: fadeInUp 1s 1s ease-out;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    color: #ffffff;
+    background-color: #ff5722;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: pulse 1.5s infinite;
+}
+
+.cta-button:hover {
+    background-color: #e64a19;
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 600px) {
+    .know-item-info{
+        width: 60%;
+    }
+    .know-image {
+        width: 40%;
+    }
+}

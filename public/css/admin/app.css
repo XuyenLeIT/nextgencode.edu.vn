@@ -1,0 +1,91 @@
+.header {
+    height: 50px;
+    background: var(--primary-admin-background);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.logo {
+    position: relative;
+    padding: 2px 8px;
+    border: 3px solid #ffa500;
+    border-radius: 10px;
+    color: #ffa500;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.highlight {
+    font-weight: bold;
+    font-size: 20px;
+}
+.authen-profile{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar-admin{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.content {
+    display: flex;
+}
+
+.sidebar {
+    background: var(--primary-admin-background);
+    height: calc(100vh - 100px);
+}
+.sidebar__title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.main-content {
+    padding: 5px;
+    height: calc(100vh - 100px);
+    overflow-y: scroll;
+}
+.knowtable {
+    table-layout: fixed;
+}
+.des-know,
+.ouline-des,
+.achive-des {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.footer {
+    height: 50px;
+    background: #45474b;
+}
+.lazy-content {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Hiển thị nội dung khi đã tải xong */
+.lazy-content.loaded {
+    opacity: 1;
+}
