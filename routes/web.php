@@ -11,9 +11,13 @@ use App\Http\Controllers\TimeLineController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\CorsMiddleware;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientController::class, "home"])->name("client.home");
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
 Route::get('/login', [UserController::class, "login"])->name("user.login");
 Route::post('/login', [UserController::class, "checkLogin"])->name("user.checklogin");
 Route::get('/change-pass', [UserController::class, "viewPassAdmin"])->name("user.viewchangepass");
