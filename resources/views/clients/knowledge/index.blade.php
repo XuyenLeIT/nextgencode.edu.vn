@@ -13,7 +13,7 @@
                             <div class="know-item-info">
                                 <p class="know-title">{{ $item->title }}</p>
                                 <p class="know-des">{{ $item->sort_content }}</p>
-                                <p class="know-date">2024-10-10</p>
+                                <p class="know-date">{{ $item->created_at }}</p>
                             </div>
                             <img class="know-image" src="/{{ $item->thumbnail }}" />
                         </div>
