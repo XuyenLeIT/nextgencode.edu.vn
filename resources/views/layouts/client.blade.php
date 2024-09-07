@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:title" content="Học lập trình mọi lúc, chinh phục tương lai!">
+    <meta property="og:description" content="cung cấp khóa học từ cơ bản đến nâng cao, giúp bạn nhanh chóng nắm vững các ngôn ngữ như ,Net, Java, và JavaScript... Học tập linh hoạt với nội dung súc tích và bài tập thực hành thực tế.">
+    <meta property="og:image" content="https://www.nextgencode.edu.vn/storage/carauselImages/66a65ebf10dc7.thumb4.webp">
+    <meta property="og:url" content="https://www.nextgencode.edu.vn/storage/carauselImages/66a65ebf10dc7.thumb4.webp">
+    <meta property="og:type" content="website">
     <title>@yield('title', 'Course management')</title>
     <link rel="icon" href="logo/edu.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
