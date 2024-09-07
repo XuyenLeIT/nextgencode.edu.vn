@@ -2,7 +2,11 @@
 <link rel="stylesheet" href="{{ asset('css/client/home.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" />
 @section('title', 'Home Page')
-
+<meta property="og:title" content="Học lập trình mọi lúc, chinh phục tương lai!">
+<meta property="og:description"
+    content="cung cấp khóa học từ cơ bản đến nâng cao, giúp bạn nhanh chóng nắm vững các ngôn ngữ như ,Net, Java, và JavaScript... Học tập linh hoạt với nội dung súc tích và bài tập thực hành thực tế.">
+<meta property="og:image" content="https://www.nextgencode.edu.vn/storage/carauselImages/66a65ebf10dc7.thumb4.webp">
+<meta property="og:url" content="https://www.nextgencode.edu.vn/">
 @section('content')
     <div class="container-fluid">
         <div class="row gx-3 mt-2 lazy-content">
