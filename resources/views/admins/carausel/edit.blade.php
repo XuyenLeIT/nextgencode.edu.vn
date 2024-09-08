@@ -6,6 +6,11 @@
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.carausel.index') }}">Back to list</a>
         <h1>Create form carausel</h1>
+        @if (session('info'))
+        <div class="alert alert-success">
+            <strong>Info!</strong> {{ session('info') }}
+        </div>
+    @endif
         <form method="POST" action="{{ route('admin.carausel.update', $carausel) }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 mt-3">

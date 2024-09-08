@@ -6,11 +6,16 @@
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.feedback.index') }}">Back to list</a>
         <h1>Create form feedback</h1>
+        @if (session('info'))
+            <div class="alert alert-success">
+                <strong>Info!</strong> {{ session('info') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('admin.feedback.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Name:</label>
-                <input type="text" class="form-control" name="name" value="{{old('name')}}">
+                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                 @error('name')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -24,7 +29,7 @@
             </div>
             <div class="mb-3 mt-3">
                 <label for="content" class="form-label">Content:</label>
-                <textarea class="form-control" name="content">{{old('content')}}</textarea>
+                <textarea class="form-control" name="content">{{ old('content') }}</textarea>
                 @error('content')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -38,7 +43,7 @@
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" id="check2" name="status" value="0"
-                        {{ (old('status') == null || old('status'))? '' : 'checked' }}>
+                        {{ old('status') == null || old('status') ? '' : 'checked' }}>
                     <label class="form-check-label" for="check2">DisActive</label>
                 </div>
             </div>
