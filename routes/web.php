@@ -31,7 +31,8 @@ Route::get('/feedback', [FeedbackController::class, "index"])->name("client.feed
 Route::get('/knowledge', [KnowledgeController::class, "index"])->name("client.knowledge");
 Route::get('/knowledge/{id}', [KnowledgeController::class, "detail"])->name("client.knowledge.detail");
 // Route::prefix('admin')->group(function () {
-Route::prefix('admin')->middleware(AuthMiddleware::class)->group(function () {
+// ->middleware(AuthMiddleware::class)
+Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, "home"])->name("admin.home");
     Route::get('/course', [CourseController::class, "index"])->name("admin.course.index");
     Route::get('/course/create', [CourseController::class, "create"])->name("admin.course.create");

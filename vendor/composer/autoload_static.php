@@ -337,8 +337,8 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -508,8 +508,33 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
+        'App\\Http\\Controllers\\BannerController' => __DIR__ . '/../..' . '/app/Http/Controllers/BannerController.php',
+        'App\\Http\\Controllers\\CarauselController' => __DIR__ . '/../..' . '/app/Http/Controllers/CarauselController.php',
+        'App\\Http\\Controllers\\ClientController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClientController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\CourseController' => __DIR__ . '/../..' . '/app/Http/Controllers/CourseController.php',
+        'App\\Http\\Controllers\\FeedbackController' => __DIR__ . '/../..' . '/app/Http/Controllers/FeedbackController.php',
+        'App\\Http\\Controllers\\KnowledgeController' => __DIR__ . '/../..' . '/app/Http/Controllers/KnowledgeController.php',
+        'App\\Http\\Controllers\\TimeLineController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimeLineController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Middleware\\AuthMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthMiddleware.php',
+        'App\\Http\\Middleware\\CheckUrl' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckUrl.php',
+        'App\\Http\\Middleware\\CorsMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/CorsMiddleware.php',
+        'App\\Mail\\MailOTP' => __DIR__ . '/../..' . '/app/Mail/MailOTP.php',
+        'App\\Mail\\MyEmail' => __DIR__ . '/../..' . '/app/Mail/MyEmail.php',
+        'App\\Models\\AchiveCourse' => __DIR__ . '/../..' . '/app/Models/AchiveCourse.php',
+        'App\\Models\\Banner' => __DIR__ . '/../..' . '/app/Models/Banner.php',
+        'App\\Models\\Carausel' => __DIR__ . '/../..' . '/app/Models/Carausel.php',
+        'App\\Models\\Course' => __DIR__ . '/../..' . '/app/Models/Course.php',
+        'App\\Models\\DesCourse' => __DIR__ . '/../..' . '/app/Models/DesCourse.php',
+        'App\\Models\\Feedback' => __DIR__ . '/../..' . '/app/Models/Feedback.php',
+        'App\\Models\\Knowledge' => __DIR__ . '/../..' . '/app/Models/Knowledge.php',
+        'App\\Models\\ModuleCourse' => __DIR__ . '/../..' . '/app/Models/ModuleCourse.php',
+        'App\\Models\\OutlineModule' => __DIR__ . '/../..' . '/app/Models/OutlineModule.php',
+        'App\\Models\\TimeLine' => __DIR__ . '/../..' . '/app/Models/TimeLine.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\WhoCourse' => __DIR__ . '/../..' . '/app/Models/WhoCourse.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',

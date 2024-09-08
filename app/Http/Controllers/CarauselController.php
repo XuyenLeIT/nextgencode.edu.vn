@@ -30,12 +30,13 @@ class CarauselController extends Controller
         $isActive = $request->has("status") ? true : false;
         if ($request->hasFile('image')) {
             $filename = uniqid() . '.' . $request->image->getClientOriginalName();
-            $request->image->storeAs('public/carauselImages', $filename);
+            // $request->image->storeAs('public/carauselImages', $filename);
+            $request->image->move(public_path("carauselImages"),$filename);
             Carausel::create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'status' => $isActive,
-                'image' => 'storage/carauselImages/' . $filename,
+                'image' => 'carauselImages/' . $filename,
             ]);
         } 
         return redirect()->route('admin.carausel.index')->with('success', 'carausel created successfully.');
