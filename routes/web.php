@@ -11,13 +11,9 @@ use App\Http\Controllers\TimeLineController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\CorsMiddleware;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientController::class, "home"])->name("client.home");
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
-});
 Route::get('/login', [UserController::class, "login"])->name("user.login");
 Route::post('/login', [UserController::class, "checkLogin"])->name("user.checklogin");
 Route::get('/change-pass', [UserController::class, "viewPassAdmin"])->name("user.viewchangepass");
@@ -30,9 +26,7 @@ Route::get('/course/{id}', [ClientController::class, "course"])->name("client.co
 Route::get('/feedback', [FeedbackController::class, "index"])->name("client.feedback");
 Route::get('/knowledge', [KnowledgeController::class, "index"])->name("client.knowledge");
 Route::get('/knowledge/{id}', [KnowledgeController::class, "detail"])->name("client.knowledge.detail");
-// Route::prefix('admin')->group(function () {
-// ->middleware(AuthMiddleware::class)
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(AuthMiddleware::class)->group(function () {
     Route::get('/', [AdminController::class, "home"])->name("admin.home");
     Route::get('/course', [CourseController::class, "index"])->name("admin.course.index");
     Route::get('/course/create', [CourseController::class, "create"])->name("admin.course.create");
