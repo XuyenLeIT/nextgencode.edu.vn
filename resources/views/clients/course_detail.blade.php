@@ -13,7 +13,7 @@
         @if ($course->whoCourse)
             <div class="who-course row gx-5 lazy-content">
                 <div class="col-md-4">
-                    <img class="course-img" src="/{{ $course->whoCourse->thumbnail }}" />
+                    <img class="course-img" src="{{ $course->whoCourse->thumbnail }}" />
                 </div>
                 <div class="col-md-8">
                     <h4 class="animate__animated animate__backInDown">PHÙ HỢP CHO NHỮNG NGƯỜI HỌC TỪ ĐẦU</h4>
@@ -30,7 +30,7 @@
                             <div class="achive-item animate__animated animate__pulse">
                                 <h6>{{ $item->title }}</h6>
                                 <div class="achive-item-des">
-                                    <img class="achive-img" src="/{{ $item->thumbnail }}" />
+                                    <img class="achive-img" src="{{ $item->thumbnail }}" />
                                     <p>{{ $item->description }}</p>
                                 </div>
                             </div>

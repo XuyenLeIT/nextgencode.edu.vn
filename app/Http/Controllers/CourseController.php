@@ -109,7 +109,7 @@ class CourseController extends Controller
             "class" => 'required'
 
         ]);
-  
+
         try {
             $fileLetterUpdate = "";
             $fileThumnailUpdate = "";
@@ -173,21 +173,23 @@ class CourseController extends Controller
             'course_id' => 'required',
             'thumbnail' => 'image|nullable|max:1999',
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        if ($request->hasFile('thumbnail')) {
-            $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $filename);
-            WhoCourse::create([
-                'description' => $request->description,
-                'course_id' => $request->course_id,
-                'thumbnail' => 'storage/courseImages/' . $filename,
-                'status' => $isActive,
-            ]);
-        } else {
-            return redirect()->route('admin.course.index')->with('thumbnail', 'Image is required.');
+        try {
+            if ($request->hasFile('thumbnail')) {
+                $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $filename);
+                WhoCourse::create([
+                    'description' => $request->description,
+                    'course_id' => $request->course_id,
+                    'thumbnail' => '/courseImages/' . $filename,
+                    'status' => $request->status,
+                ]);
+            } else {
+                return redirect()->route('admin.course.index')->with('thumbnail', 'Image is required.');
+            }
+            return redirect()->route('admin.course.index')->with('success', 'CourseDetail created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        return redirect()->route('admin.course.index')->with('success', 'CourseDetail created successfully.');
     }
     public function updateWhoCourse(Request $request, WhoCourse $whoCourse)
     {
@@ -196,24 +198,30 @@ class CourseController extends Controller
             'course_id' => 'required',
             'thumbnail' => 'image|nullable|max:1999',
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        //dd("status",$isActive);
-        if ($request->hasFile('thumbnail')) {
-            $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $filename);
-            $thumbnail = 'storage/courseImages/' . $filename;
-        } else {
-            $thumbnail = $request->thumbnailExisted;
+        try {
+            if ($request->hasFile('thumbnail')) {
+                $imagePath = public_path($whoCourse->thumbnail);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+                $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $filename);
+                $thumbnail = '/courseImages/' . $filename;
+
+            } else {
+                $thumbnail = $request->thumbnailExisted;
+            }
+            $whoCourse->update([
+                'id' => $request->id,
+                'description' => $request->description,
+                'course_id' => $request->course_id,
+                'thumbnail' => $thumbnail,
+                'status' => $request->status,
+            ]);
+            return redirect()->route('admin.course.index')->with('success', 'CourseDetail updated successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        $whoCourse->update([
-            'id' => $request->id,
-            'description' => $request->description,
-            'course_id' => $request->course_id,
-            'thumbnail' => $thumbnail,
-            'status' => $isActive,
-        ]);
-        return redirect()->route('admin.course.index')->with('success', 'CourseDetail updated successfully.');
     }
     //achiveCourse
     public function createAchiveCourse($id)
@@ -228,23 +236,25 @@ class CourseController extends Controller
             "description" => 'required'
 
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        // dd($request->all());
-        if ($request->hasFile('thumbnail')) {
-            $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $filename);
-            AchiveCourse::create([
-                'title' => $request->title,
-                'course_id' => $id,
-                'description' => $request->description,
-                'status' => $isActive,
-                'thumbnail' => 'storage/courseImages/' . $filename,
-            ]);
-        } else {
-            return redirect()->route('admins.course.achive_create', $id)->with('thumbnail', 'Image is required.');
+        try {
+            // dd($request->all());
+            if ($request->hasFile('thumbnail')) {
+                $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $filename);
+                AchiveCourse::create([
+                    'title' => $request->title,
+                    'course_id' => $id,
+                    'description' => $request->description,
+                    'status' => $request->status,
+                    'thumbnail' => '/courseImages/' . $filename,
+                ]);
+            } else {
+                return redirect()->route('admins.course.achive_create', $id)->with('thumbnail', 'Image is required.');
+            }
+            return redirect()->route('admin.course.detail', $id)->with('success', 'Achive course created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        return redirect()->route('admin.course.detail', $id)->with('success', 'Achive course created successfully.');
     }
     public function editAchiveCourse(AchiveCourse $achiveCourse)
     {
@@ -258,23 +268,25 @@ class CourseController extends Controller
             "description" => 'required'
 
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        // dd($request->all());
-        if ($request->hasFile('thumbnail')) {
-            $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $filename);
-            $thumbnail = 'storage/courseImages/' . $filename;
-        } else {
-            $thumbnail = $request->thumbnailExisted;
+        try {
+            // dd($request->all());
+            if ($request->hasFile('thumbnail')) {
+                $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $filename);
+                $thumbnail = '/courseImages/' . $filename;
+            } else {
+                $thumbnail = $request->thumbnailExisted;
+            }
+            $achiveCourse->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'status' => $request->status,
+                'thumbnail' => $thumbnail
+            ]);
+            return redirect()->route('admin.course.detail', $achiveCourse->course_id)->with('success', 'Achive course updated successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        $achiveCourse->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $isActive,
-            'thumbnail' => $thumbnail
-        ]);
-        return redirect()->route('admin.course.detail', $achiveCourse->course_id)->with('success', 'Achive course updated successfully.');
     }
     //ModuleCourse
     public function createModuleCourse($id)
@@ -407,41 +419,54 @@ class CourseController extends Controller
             'title' => 'required',
             "description" => 'required'
         ]);
+        try {
+            // Kiểm tra nếu có tệp ảnh được tải lên
+            if ($request->hasFile('thumbnail')) {
+                // Tạo tên tệp ảnh độc nhất
+                $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                // Lưu ảnh vào thư mục 'public/knowImages'
+                $request->thumbnail->move(public_path("knowledgesImages"), $filename);
+                // Xử lý nội dung editor
+                $description = $request->input('description');
+                // Làm sạch HTML
+                $description = $this->cleanHtml($description);
+                $dom = new DOMDocument('1.0', 'UTF-8');
+                libxml_use_internal_errors(true); // Bỏ qua các lỗi không quan trọng
 
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        // Xử lý nội dung editor
-        $description = $request->input('description');
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        // Tùy chọn để xử lý HTML tốt hơn
-        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $images = $dom->getElementsByTagName('img');
-        foreach ($images as $img) {
-            $src = $img->getAttribute('src');
-            // Chỉ xử lý ảnh base64
-            if (preg_match('/^data:image\/(\w+);base64,/', $src)) {
-                $data = substr($src, strpos($src, ',') + 1);
-                $data = base64_decode($data);
-                $image_name = time() . '_' . uniqid() . '.png';
-                $path = storage_path('app/public/uploads/') . $image_name;
+                // Tải HTML vào DOMDocument
+                $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                libxml_clear_errors(); // Xóa các lỗi đã xảy ra
+                // Xử lý các ảnh base64 trong nội dung
+                $images = $dom->getElementsByTagName('img');
+                foreach ($images as $img) {
+                    $src = $img->getAttribute('src');
+                    // Chỉ xử lý ảnh base64
+                    if (preg_match('/^data:image\/(\w+);base64,/', $src)) {
+                        $data = substr($src, strpos($src, ',') + 1);
+                        $data = base64_decode($data);
+                        $image_name = time() . '_' . uniqid() . '.png';
+                        $path = public_path('desCourseImages/' . $image_name);
+                        // Lưu file vào storage
+                        file_put_contents($path, $data);
+                        // Cập nhật đường dẫn ảnh trong nội dung
+                        $img->removeAttribute('src');
+                        $img->setAttribute('src', '/desCourseImages/' . $image_name);
+                    }
+                }
+                $description = $dom->saveHTML();
+                DesCourse::create([
+                    'title' => $request->title,
+                    'description' => $description,
+                    'course_id' => $id,
+                    'status' => $request->status,
+                ]);
 
-                // Lưu file vào storage
-                file_put_contents($path, $data);
-                // Cập nhật đường dẫn ảnh trong nội dung
-                $img->removeAttribute('src');
-                $img->setAttribute('src', '/storage/uploads/' . $image_name);
+                return redirect()->route('admin.course.detail', ['id' => $id])->with('success', 'Des course created successfully.');
             }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        $description = $dom->saveHTML();
-        // dd($request->all());
-        DesCourse::create([
-            'title' => $request->title,
-            'description' => $description,
-            'course_id' => $id,
-            'status' => $isActive,
-        ]);
 
-        return redirect()->route('admin.course.detail', ['id' => $id])->with('success', 'Des course created successfully.');
     }
     public function editDes($id)
     {
@@ -457,58 +482,70 @@ class CourseController extends Controller
             "description" => 'required'
         ]);
 
-        // Check if checkbox is checked
-        $isActive = $request->has('status') ? true : false;
-
-        // Get and process description
+        // Lấy và xử lý nội dung mô tả
         $description = $request->input('description');
         $deletedImages = json_decode($request->input('deleted_images'), true);
-
-        // Delete images marked for deletion
+        // Xóa các ảnh đã được đánh dấu để xóa
         if ($deletedImages) {
             foreach ($deletedImages as $image) {
                 $parsedUrl = parse_url($image, PHP_URL_PATH);
                 $imagePathUrl = ltrim($parsedUrl, '/');
-                $imagePath = str_replace('storage', 'public', $imagePathUrl);
-                Storage::delete($imagePath);
+                $imagePath = public_path($imagePathUrl);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); // Xóa file khỏi public
+                }
             }
         }
-
-        // Process base64 images in the description
+        // Làm sạch và xử lý các ảnh base64 trong nội dung
+        $description = $this->cleanHtml($description);
         $dom = new DOMDocument('1.0', 'UTF-8');
-        libxml_use_internal_errors(true); // Suppress warnings from malformed HTML
+        libxml_use_internal_errors(true); // Bỏ qua các lỗi không quan trọng
+
+        // Tải HTML vào DOMDocument
         $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        libxml_clear_errors();
+        libxml_clear_errors(); // Xóa các lỗi đã xảy ra
 
         $images = $dom->getElementsByTagName('img');
 
         foreach ($images as $img) {
             $src = $img->getAttribute('src');
-            // Process only base64 images
+            // Xử lý chỉ các ảnh base64
             if (preg_match('/^data:image\/(\w+);base64,/', $src)) {
                 $data = substr($src, strpos($src, ',') + 1);
                 $data = base64_decode($data);
                 $image_name = time() . '_' . uniqid() . '.png';
-                $path = storage_path('app/public/uploads/') . $image_name;
+                $path = public_path('desCourseImages/' . $image_name);
 
-                // Save the file to storage
+                // Lưu tệp vào storage
                 file_put_contents($path, $data);
 
-                // Update the image path in the HTML content
+                // Cập nhật đường dẫn ảnh trong nội dung HTML
                 $img->removeAttribute('src');
-                $img->setAttribute('src', '/storage/uploads/' . $image_name);
+                $img->setAttribute('src', '/desCourseImages/' . $image_name);
             }
         }
 
         $description = $dom->saveHTML();
-
         // Update the Knowledge record
         $desC->update([
             'title' => $request->input('title'),
             'description' => $description,
-            'status' => $isActive,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.course.detail', ['id' => $desC->course_id])->with('success', 'Des course created successfully.');
+    }
+    protected function cleanHtml($html)
+    {
+        // Danh sách các thẻ không hợp lệ
+        $invalid_tags = ['canvas', 'script', 'iframe']; // Thêm các thẻ không hợp lệ khác nếu cần
+
+        foreach ($invalid_tags as $tag) {
+            // Loại bỏ các thẻ không hợp lệ
+            $html = preg_replace('/<' . $tag . '[^>]*>.*?<\/' . $tag . '>/', '', $html);
+            $html = preg_replace('/<' . $tag . '[^>]*>/', '', $html);
+        }
+
+        return $html;
     }
 }

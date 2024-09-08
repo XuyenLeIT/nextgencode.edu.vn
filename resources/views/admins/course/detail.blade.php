@@ -55,7 +55,7 @@
                                             <label for="thumbnail" class="form-label">Thumnail Image:</label>
                                             <input type="hidden" value="{{ $whoCourse->thumbnail }}"
                                                 name="thumbnailExisted">
-                                            <img src="/{{ $whoCourse->thumbnail }}" width="100" class="thumbnail" />
+                                            <img src="{{ $whoCourse->thumbnail }}" width="100" class="thumbnail" />
                                         </div>
                                         <div class="mb-3 mt-3">
                                             <label for="name" class="form-label">Status:</label>

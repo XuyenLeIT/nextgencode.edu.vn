@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
+        @if (session('info'))
             <div class="alert alert-success">
-                <strong>Success!</strong>{{ session('success') }}
+                <strong>Info!</strong>{{ session('info') }}
             </div>
         @endif
         <h1>Update form carausel</h1>

@@ -118,7 +118,7 @@ class KnowledgeController extends Controller
             'thumbnail' => 'image|nullable|max:1999',
             'description' => 'required',
         ]);
-       
+
         try {
             // Xử lý tải ảnh thumbnail
             if ($request->hasFile('thumbnail')) {

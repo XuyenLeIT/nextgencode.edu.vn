@@ -5,6 +5,11 @@
 @section('content')
     <div class="container">
         <h1>Create form carausel</h1>
+        @if (session('info'))
+        <div class="alert alert-success">
+            <strong>Info!</strong> {{ session('info') }}
+        </div>
+    @endif
         <form method="POST" action="{{ route('admin.banner.store') }}"
              enctype="multipart/form-data">
             @csrf
