@@ -23,9 +23,8 @@ class UserController extends Controller
     public function checkLogin(Request $request)
     {
         // Giả sử bạn đã xác thực người dùng và lấy được $user
-        // $user = DB::table('users')->where('email', $request->email)->first();
-        $user = User::where("email", "=", $request->email)->first();
-        if($user && $user->role != "admin"){
+        $user = User::where("email", $request->email)->first();
+        if ($user && $user->role != "admin") {
             return redirect('/login')->with('message', 'Bạn không có quyền');
         }
         if ($user && Hash::check($request->password, $user->password)) {
@@ -50,7 +49,7 @@ class UserController extends Controller
         } else {
             return redirect('/login')->with('message', 'Chưa xác thực bước 1 login');
         }
-      
+
     }
     public function checkOTP(Request $request)
     {
@@ -82,7 +81,7 @@ class UserController extends Controller
         //join voi Eloquent ORM 
         $users = User::with('courses')->get();
         $courses = Course::all();
-        $search =  $request->search;
+        $search = $request->search;
         if ($search != "") {
             $users = $users->where('class', $search);
         }
@@ -115,9 +114,9 @@ class UserController extends Controller
                     'errors' => $errors,
                 ], 400);
             }
-            $adminEmailExisting = User::where("role","admin")->first();
-            if($adminEmailExisting->email == $request->email){
-                $errors[] =  [
+            $adminEmailExisting = User::where("role", "admin")->first();
+            if ($adminEmailExisting->email == $request->email) {
+                $errors[] = [
                     'field' => "email",
                     'message' => "Opp email đã tồn tại",
                 ];
@@ -194,26 +193,26 @@ class UserController extends Controller
     {
         // Validate the form data
         $request->validate([
-            'email'=>"required|email",
+            'email' => "required|email",
             'password' => 'required',
             'newpassword' => 'required|confirmed|min:8',
-            
+
         ]);
-      try {
-        $user = User::where("email",$request->email)->first();
-        if(!$user){
-            return redirect()->back()->withInput()->with('message', 'Email không tồn tại');
+        try {
+            $user = User::where("email", $request->email)->first();
+            if (!$user) {
+                return redirect()->back()->withInput()->with('message', 'Email không tồn tại');
+            }
+            if (Hash::check($request->password, $user->password)) {
+                $user->update([
+                    "password" => Hash::make("$request->password")
+                ]);
+                return redirect()->route("admin.user.index")->with('message', 'Change password successfully');
+            }
+            return redirect()->back()->withInput()->with('message', 'Current Password không đúng');
+        } catch (\Throwable $th) {
+            return redirect()->route("admin.user.index")->with('message', 'Opp something went wrong');
         }
-        if(Hash::check($request->password, $user->password)){
-            $user->update([
-                "password" => Hash::make("$request->password")
-            ]);
-            return redirect()->route("admin.user.index")->with('message', 'Change password successfully');
-        }
-        return redirect()->back()->withInput()->with('message', 'Current Password không đúng');
-      } catch (\Throwable $th) {
-        return redirect()->route("admin.user.index")->with('message', 'Opp something went wrong');
-      }
     }
     public function edit($id)
     {
