@@ -9,18 +9,23 @@
                 <h4 class="fw-bold">Khóa Học Lập Trình</h4>
                 <div class="row gx-2 gy-2">
                     @foreach ($courses as $item)
+                        @php
+                            $slug = Str::slug($item->name);
+                        @endphp
                         <div
                             class="{{ $banner ? ($banner->status ? 'col-md-4' : 'col-md-3') : 'col-md-3' }} col-sm-6 col-12">
                             <div class="course__item">
                                 <img class="course_image" src="{{ $item->thumbnail }}" />
                                 <p class="course__name fw-bold">{{ $item->name }}</p>
                                 <p class="course__start-title">Ngay Khai giang</p>
-                                <p class="course__start-date">{{ $item->status ? $item->startDate : 'đang cập nhật...' }}</p>
+                                <p class="course__start-date">{{ $item->status ? $item->startDate : 'đang cập nhật...' }}
+                                </p>
                                 <div class="course__start__typeLearn text-start mb-2">
                                     <span class="badge bg-success">{{ $item->typeLearn ? 'Online' : 'Offline' }}</span>
                                 </div>
                                 @if ($item->status)
-                                    <a class="btn__view-course" href="{{ route('client.course', $item->id) }}">Xem Khoa
+                                    <a class="btn__view-course" href="{{ route('client.course', [$slug, $item->id]) }}">Xem
+                                        Khoa
                                         hoc</a>
                                 @else
                                     <a class="btn__view-course-disable">Xem Khoa hoc</a>
@@ -32,6 +37,9 @@
                 </div>
             </div>
             @if ($banner->status)
+                @php
+                    $slug = Str::slug($banner->title);
+                @endphp
                 <div class="col-md-3 col-sm-12 col-12">
                     <div class="banner"
                         style="background-image: url({{ $banner->image }});background-repeat: no-repeat; background-position: center center; background-size: cover;">
@@ -43,7 +51,7 @@
                                 <p class="banner-date"><strong>Ngày khai giảng:</strong> {{ $banner->startDate }}</p>
                                 <p class="banner-promotion"><strong>Ưu đãi: </strong>{{ $banner->promotion }}</p>
                             </div>
-                            <a href="{{ route('client.course', $banner->id) }}" class="cta-button" >Xem ngay!</a>
+                            <a href="{{ route('client.course', [$slug, $banner->id]) }}" class="cta-button">Xem ngay!</a>
                         </div>
                     </div>
                 </div>
@@ -56,8 +64,12 @@
                 <div class="row gx-2">
                     <div class="carousel-know" data-flickity='{"pageDots": false }'>
                         @foreach ($knows as $item)
+                            @php
+                                $slug = Str::slug($item->title);
+                            @endphp
                             <div class="col-md-3 col-sm-6 col-12 carousel-know-cell">
-                                <a class="know__item-link" href="{{ route('client.knowledge.detail', $item->id) }}">
+                                <a class="know__item-link"
+                                    href="{{ route('client.knowledge.detail', [$slug, $item->id]) }}">
                                     <div class="know-item">
                                         <img class="know-image" src="{{ $item->thumbnail }}" />
                                         <p class="know-title">{{ $item->title }}</p>

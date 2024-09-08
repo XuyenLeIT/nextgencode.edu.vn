@@ -17,11 +17,14 @@ class ClientController extends Controller
     $timelines = TimeLine::all();
     return view("clients.home",compact("courses","knows","banner","timelines"));
   }
-  public function course($id){
+  public function course($slug, $id){
     $course = Course::find($id);
     if(!($course->status)){
       return redirect()->route("client.home");
     }
-    return view("clients.course_detail",compact("course"));
+    if($course){
+      return view("clients.course_detail",compact("course"));
+    }
+
   }
 }

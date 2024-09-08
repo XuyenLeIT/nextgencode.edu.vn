@@ -7,6 +7,7 @@ use App\Models\Knowledge;
 use DOMDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class KnowledgeController extends Controller
 {
@@ -17,8 +18,8 @@ class KnowledgeController extends Controller
         $banner = Banner::first();
         return view("clients.knowledge.index", compact("knows", "banner"));
     }
-    public function detail($id)
-    {
+    public function detail($slug, $id)
+    {     
         $know = Knowledge::find($id);
         if ($know) {
             return view("clients.knowledge.detail", compact("know"));

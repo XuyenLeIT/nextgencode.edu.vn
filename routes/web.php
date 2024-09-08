@@ -22,10 +22,10 @@ Route::get('/otp', [UserController::class, "viewOTP"])->name("user.viewOTP");
 Route::post('/otp', [UserController::class, "checkOTP"])->name("user.checkOTP");
 Route::get('/logout', [UserController::class, "logout"])->name("user.logout");
 Route::post('/users', [UserController::class, 'addUserCourse'])->middleware([CorsMiddleware::class]);
-Route::get('/course/{id}', [ClientController::class, "course"])->name("client.course");
+Route::get('/course/{slug}/{id}', [ClientController::class, "course"])->name("client.course");
 Route::get('/feedback', [FeedbackController::class, "index"])->name("client.feedback");
 Route::get('/knowledge', [KnowledgeController::class, "index"])->name("client.knowledge");
-Route::get('/knowledge/{id}', [KnowledgeController::class, "detail"])->name("client.knowledge.detail");
+Route::get('/knowledge/{slug}/{id}', [KnowledgeController::class, "detail"])->name("client.knowledge.detail");
 Route::prefix('admin')->middleware(AuthMiddleware::class)->group(function () {
     Route::get('/', [AdminController::class, "home"])->name("admin.home");
     Route::get('/course', [CourseController::class, "index"])->name("admin.course.index");
