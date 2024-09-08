@@ -9,7 +9,6 @@
                 <h4 class="fw-bold">Khóa Học Lập Trình</h4>
                 <div class="row gx-2 gy-2">
                     @foreach ($courses as $item)
-                        {{-- @dd($item) --}}
                         <div
                             class="{{ $banner ? ($banner->status ? 'col-md-4' : 'col-md-3') : 'col-md-3' }} col-sm-6 col-12">
                             <div class="course__item">
@@ -60,7 +59,7 @@
                             <div class="col-md-3 col-sm-6 col-12 carousel-know-cell">
                                 <a class="know__item-link" href="{{ route('client.knowledge.detail', $item->id) }}">
                                     <div class="know-item">
-                                        <img class="know-image" src="/{{ $item->thumbnail }}" />
+                                        <img class="know-image" src="{{ $item->thumbnail }}" />
                                         <p class="know-title">{{ $item->title }}</p>
                                         <p class="know-date">2024-10-10</p>
                                         <p class="know-des">{{ $item->sort_content }}</p>

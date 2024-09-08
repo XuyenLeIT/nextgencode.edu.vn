@@ -6,7 +6,7 @@
     <div class="container">
         <div class="knowledge">
             <h4 class="text-center fw-bold">{{ $know->title }}</h4>
-            <img class="image-top" src="/{{ $know->thumbnail }}" />
+            <img class="image-top" src="{{ $know->thumbnail }}" />
             <p>{!! $know->description !!}</p>
         </div>
     </div>

@@ -5,6 +5,11 @@
 @section('content')
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.course.index') }}">Back to list</a>
+        @if (session('info'))
+        <div class="alert alert-success">
+            <strong>Info!</strong> {{session('info')}}
+          </div>
+        @endif
         <h1>Create form course</h1>
         <form method="POST" action="{{ route('admin.course.store') }}" enctype="multipart/form-data">
             @csrf
@@ -49,9 +54,27 @@
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Type Learn:</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="check1" name="typeLearn" value="1"
-                        {{ old('typeLearn') ? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" id="check1" name="typeLearn"
+                        value="1" {{ old('typeLearn') ? 'checked' : '' }}>
                     <label class="form-check-label" for="check1">Online</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="check2" name="typeLearn"
+                        value="0" {{ !old('typeLearn') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="check2">Offline</label>
+                </div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="name" class="form-label">Status:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="status1" name="status"
+                        value="1" {{ old('status') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="status1">Active</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="status2" name="status"
+                        value="0" {{ !old('status') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="status2">DisActive</label>
                 </div>
             </div>
             <div class="mb-3 mt-3">

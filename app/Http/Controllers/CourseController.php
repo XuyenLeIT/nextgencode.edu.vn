@@ -12,6 +12,7 @@ use App\Models\WhoCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use DOMDocument;
 
 class CourseController extends Controller
@@ -39,29 +40,35 @@ class CourseController extends Controller
             "class" => 'required'
 
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("typeLearn") ? true : false;
-        if ($request->hasFile('thumbnail')) {
-            $fileThumnail = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $fileThumnail);
+        try {
+            $fileThumnail = "";
+            $fileLetter = "";
+            // Kiểm tra xem checkbox có được chọn hay không
+            if ($request->hasFile('thumbnail')) {
+                $fileThumnail = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $fileThumnail);
+            }
+            if ($request->hasFile('letter')) {
+                $fileLetter = uniqid() . '.' . $request->letter->getClientOriginalName();
+                $request->letter->move(public_path("courseLetters"), $fileThumnail);
+            }
+            Course::create([
+                'name' => $request->name,
+                'startDate' => $request->startDate,
+                'typeLearn' => $request->typeLearn,
+                'status' => $request->status,
+                'thumbnail' => '/courseImages/' . $fileThumnail,
+                'letter' => '/courseLetters/' . $fileLetter,
+                'duration' => $request->duration,
+                'stunumber' => $request->stunumber,
+                'dayweek' => $request->dayweek,
+                'hourday' => $request->hourday,
+                "class" => $request->class
+            ]);
+            return redirect()->route('admin.course.index')->with('success', 'Course created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        if ($request->hasFile('letter')) {
-            $fileLetter = uniqid() . '.' . $request->letter->getClientOriginalName();
-            $request->letter->storeAs('public/courseLetters', $fileLetter);
-        }
-        Course::create([
-            'name' => $request->name,
-            'startDate' => $request->startDate,
-            'typeLearn' => $isActive,
-            'thumbnail' => '/storage/courseImages/' . $fileThumnail,
-            'letter' => '/storage/courseLetters/' . $fileLetter,
-            'duration' => $request->duration,
-            'stunumber' => $request->stunumber,
-            'dayweek' => $request->dayweek,
-            'hourday' => $request->hourday,
-             "class" => 'required'
-        ]);
-        return redirect()->route('admin.course.index')->with('success', 'Course created successfully.');
     }
     public function detail($id)
     {
@@ -99,57 +106,61 @@ class CourseController extends Controller
             "stunumber" => 'required',
             "dayweek" => 'required',
             "hourday" => 'required',
-             "class" => 'required'
+            "class" => 'required'
 
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActiveTypeLearn = $request->has("typeLearn") ? true : false;
-        $isActiveStatus = $request->has("status") ? true : false;
-        // dd($request->all());
-        if ($request->hasFile('thumbnail')) {
-            $fileThumnail = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-            $request->thumbnail->storeAs('public/courseImages', $fileThumnail);
-            $thumbnail = '/storage/courseImages/' . $fileThumnail;
-            $thumbnailPath = str_replace('storage', 'public', $request->thumbnailExisting);
-            if (Storage::exists($thumbnailPath)) {
-                Storage::delete($thumbnailPath);
+  
+        try {
+            $fileLetterUpdate = "";
+            $fileThumnailUpdate = "";
+            if ($request->hasFile('thumbnail')) {
+                $fileThumnail = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseImages"), $fileThumnail);
+                $fileThumnailUpdate = "/courseImages/" . $fileThumnail;
+                $imagePath = public_path($request->thumbnailExisting);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            } else {
+                $fileThumnailUpdate = $request->thumbnailExisting;
             }
-        } else {
-            $thumbnail = $request->thumbnailExisting;
-        }
-        if ($request->hasFile('letter')) {
-            $fileLetter = uniqid() . '.' . $request->letter->getClientOriginalName();
-            $request->letter->storeAs('public/courseLetters', $fileLetter);
-            $letter = '/storage/courseLetters/' . $fileLetter;
-            $letterPath = str_replace('storage', 'public', $request->letterExisting);
-            if (Storage::exists($letterPath)) {
-                Storage::delete($letterPath);
+            if ($request->hasFile('letter')) {
+                $fileLetter = uniqid() . '.' . $request->letter->getClientOriginalName();
+                $request->thumbnail->move(public_path("courseLetters"), $fileLetter);
+                $fileLetterUpdate = "/courseLetters/" . $fileLetter;
+                $imagePath = public_path($request->letterExisting);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            } else {
+                $fileLetterUpdate = $request->letterExisting;
             }
-        } else {
-            $letter = $request->letterExisting;
+            $course->update([
+                'name' => $request->name,
+                'startDate' => $request->startDate,
+                'typeLearn' => $request->typeLearn,
+                'thumbnail' => $fileThumnailUpdate,
+                'letter' => $fileLetterUpdate,
+                'duration' => $request->duration,
+                'status' => $request->status,
+                'stunumber' => $request->stunumber,
+                'dayweek' => $request->dayweek,
+                'hourday' => $request->hourday,
+                "class" => $request->class
+            ]);
+            return redirect()->route('admin.course.index')->with('success', 'Course updated successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.' . $th);
         }
-        $course->update([
-            'name' => $request->name,
-            'startDate' => $request->startDate,
-            'typeLearn' => $isActiveTypeLearn,
-            'thumbnail' => $thumbnail,
-            'letter' => $letter,
-            'duration' => $request->duration,
-            'status' => $isActiveStatus,
-            'stunumber' => $request->stunumber,
-            'dayweek' => $request->dayweek,
-            'hourday' => $request->hourday,
-             "class" => $request->class
-        ]);
-        return redirect()->route('admin.course.index')->with('success', 'Course created successfully.');
+
     }
     public function delete($id)
     {
         $course = Course::find($id);
         if ($course != null) {
-            $imagePath = str_replace('storage', 'public', $course->thumbnail);
-            if (Storage::exists($imagePath)) {
-                Storage::delete($imagePath);
+            $imagePath = public_path($course->thumbnail);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
             }
             $course->delete();
         }

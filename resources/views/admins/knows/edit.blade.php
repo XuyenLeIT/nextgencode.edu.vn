@@ -6,6 +6,11 @@
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.knows.index') }}">Back to list</a>
         <h1>Create form Knows</h1>
+        @if (session('info'))
+        <div class="alert alert-info">
+            <strong>Info!</strong> {{ session('info') }}
+        </div>
+    @endif
         <form method="POST" action="{{ route('admin.knows.update',$know) }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3 mt-3">
@@ -23,15 +28,20 @@
             </div>
             <div class="mb-3 mt-3">
                 <label for="thumbnail" class="form-label">Current Image:</label>
-                <img src="/{{ $know->thumbnail }}" width="100" class="thumbnail" />
+                <img src="{{ $know->thumbnail }}" width="100" class="thumbnail" />
                 <input type="hidden" value="{{ $know->thumbnail }}" class="form-control" name="thumbnailExisted">
             </div>
             <div class="mb-3 mt-3">
-                <label for="status" class="form-label">Status:</label>
+                <label for="name" class="form-label">Status:</label>
                 <div class="form-check">
-                    <input class="form-check-input" {{ $know->status ? 'checked' : '' }} type="checkbox" id="check1"
-                        name="status" value="1">
-                    <label class="form-check-label">Active</label>
+                    <input class="form-check-input" type="radio" id="status1" name="status" value="1"
+                        {{ old('status',$know->status ) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="status1">Active</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="status2" name="status" value="0"
+                        {{ !old('status',$know->status ) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="status2">DisActive</label>
                 </div>
             </div>
             <div class="mb-3 mt-3">

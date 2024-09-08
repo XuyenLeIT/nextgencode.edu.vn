@@ -61,16 +61,18 @@
             @if ($carausels->count() > 0)
                 <div class="carousel-home" data-flickity='{ "freeScroll": true, "wrapAround": true,"autoPlay": true}'>
                     @foreach ($carausels as $key => $item)
-                        <div class="carousel-cell-home">
-                            <div class="item-carousel">
-                                <div class="item-content">
-                                    <h4>{{ $item->title }}</h4>
-                                    <p>{{ $item->description }}</p>
-                                </div>
+                        @if ($item->status)
+                            <div class="carousel-cell-home">
+                                <div class="item-carousel">
+                                    <div class="item-content">
+                                        <h4>{{ $item->title }}</h4>
+                                        <p>{{ $item->description }}</p>
+                                    </div>
 
-                                <img src="/{{ $item->image }}" class="image-carausel" alt="...">
+                                    <img src="/{{ $item->image }}" class="image-carausel" alt="...">
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             @endif

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carausel;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CarauselController extends Controller
 {
@@ -30,7 +30,6 @@ class CarauselController extends Controller
         $isActive = $request->has("status") ? true : false;
         if ($request->hasFile('image')) {
             $filename = uniqid() . '.' . $request->image->getClientOriginalName();
-            // $request->image->storeAs('public/carauselImages', $filename);
             $request->image->move(public_path("carauselImages"),$filename);
             Carausel::create([
                 'title' => $request->title,
@@ -55,18 +54,22 @@ class CarauselController extends Controller
             'description' => 'required',
         ]);
         // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
+        // $isActive = $request->has("status") ? true : false;
         if ($request->hasFile('image')) {
+            $existingImagePath = public_path($carausel->image);
+            if (File::exists($existingImagePath)) {
+                File::delete($existingImagePath);
+            }
             $filename = uniqid() . '.' . $request->image->getClientOriginalName();
-            $request->image->storeAs('public/carauselImages', $filename);
-            $image = 'storage/carauselImages/' . $filename;
+            $request->image->move(public_path("carauselImages"),$filename);
+            $image = 'carauselImages/' . $filename;
         }else{
             $image = $request->imageExisting;
         } 
         $carausel->update([
             'title' => $request->title,
             'description' => $request->description,
-            'status' => $isActive,
+            'status' => $request->status ,
             'image' => $image
         ]);
         return redirect()->route('admin.carausel.index')->with('success', 'carausel updated successfully.');
@@ -75,14 +78,15 @@ class CarauselController extends Controller
     {
         $carausel = Carausel::find($id);
         if($carausel != null){
-            $imagePath = str_replace('storage', 'public', $carausel->image);
-            if (Storage::exists($imagePath)) {
-                Storage::delete($imagePath);
+            // $imagePath = str_replace('storage', 'public', $carausel->image);
+            $imagePath = public_path($carausel->image);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
             }
             $carausel->delete();
 
         }
-        return view('admins.carausel.index')->with("success","delete carausel successfully");
+        return redirect()->route("admin.carausel.index")->with("success","delete carausel successfully");
     }
 
 }
