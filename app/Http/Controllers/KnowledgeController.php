@@ -22,7 +22,14 @@ class KnowledgeController extends Controller
     {     
         $know = Knowledge::find($id);
         if ($know) {
-            return view("clients.knowledge.detail", compact("know"));
+            // return view("clients.knowledge.detail", compact("know"));
+            return view("clients.knowledge.detail",[
+                'know'=>$know,
+                'pageTitle' => $know->title,
+                'pageDescription' => $know->description,
+                'pageImage' => $know->thumbnail,
+                'pageUrl' => url()->current(),
+            ]);
         }
         return redirect()->back();
     }

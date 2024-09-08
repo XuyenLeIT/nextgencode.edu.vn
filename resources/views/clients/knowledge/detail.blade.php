@@ -1,7 +1,12 @@
 @extends('layouts.client')
 <link rel="stylesheet" href="{{ asset('css/client/knowledge.css') }}">
 @section('title', 'Home Page')
-
+<meta name="description" content="{{ $pageDescription }}">
+<meta property="og:title" content="{{ $pageTitle }}">
+<meta property="og:description" content="{{ $pageDescription }}">
+<meta property="og:image" content="{{ $pageImage }}">
+<meta property="og:url" content="{{ $pageUrl }}">
+<meta property="og:type" content="website">
 @section('content')
     <div class="container">
         <div class="knowledge">

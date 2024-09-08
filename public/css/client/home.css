@@ -242,6 +242,7 @@ banner-promotion {
     width: 80% !important;
     display: block;
     margin: auto;
+    margin-bottom: 60px;
 }
 .timeline {
     width: 100%;
