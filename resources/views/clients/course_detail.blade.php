@@ -4,7 +4,7 @@
 <meta name="description" content="{{ $pageDescription }}">
 <meta property="og:title" content="{{ $pageTitle }}">
 <meta property="og:description" content="{{ $pageDescription }}">
-<meta property="og:image" content="{{ $pageImage }}">
+<meta property="og:image" content="{{ "https://www.nextgencode.edu.vn".$pageImage }}">
 <meta property="og:url" content="{{ $pageUrl }}">
 <meta property="og:type" content="website">
 @section('content')

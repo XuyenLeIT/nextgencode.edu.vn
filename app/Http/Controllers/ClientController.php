@@ -25,11 +25,12 @@ class ClientController extends Controller
       return redirect()->route("client.home");
     }
     if ($course) {
+      dd($course->DesCourse->description);
       return view("clients.course_detail", [
         'course' => $course,
         'pageTitle' => $course->name,
         'pageDescription' => $course->DesCourse->description,
-        'pageImage' => "https://www.nextgencode.edu.vn".$course->thumbnail,
+        'pageImage' => $course->thumbnail,
         'pageUrl' => url()->current(),
       ]);
 

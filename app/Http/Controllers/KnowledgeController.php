@@ -27,7 +27,7 @@ class KnowledgeController extends Controller
                 'know'=>$know,
                 'pageTitle' => $know->title,
                 'pageDescription' => $know->description,
-                'pageImage' => 'https://www.nextgencode.edu.vn'.$know->thumbnail,
+                'pageImage' => $know->thumbnail,
                 'pageUrl' => url()->current(),
             ]);
         }

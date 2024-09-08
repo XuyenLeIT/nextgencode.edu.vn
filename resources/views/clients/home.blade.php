@@ -5,7 +5,7 @@
 <meta property="og:title" content="Học lập trình mọi lúc, chinh phục tương lai!">
 <meta property="og:description"
     content="cung cấp khóa học từ cơ bản đến nâng cao, giúp bạn nhanh chóng nắm vững các ngôn ngữ như ,Net, Java, và JavaScript... Học tập linh hoạt với nội dung súc tích và bài tập thực hành thực tế.">
-<meta property="og:image" content="https://www.nextgencode.edu.vn/storage/carauselImages/66a65ebf10dc7.thumb4.webp">
+<meta property="og:image" content="https://png.pngtree.com/png-clipart/20200701/original/pngtree-children-s-software-programming-png-image_5401259.jpg">
 <meta property="og:url" content="https://www.nextgencode.edu.vn/">
 <meta property="og:type" content="website">
 @section('content')
