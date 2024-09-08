@@ -205,7 +205,7 @@ class UserController extends Controller
             }
             if (Hash::check($request->password, $user->password)) {
                 $user->update([
-                    "password" => Hash::make("$request->password")
+                    "password" => Hash::make("$request->newpassword")
                 ]);
                 return redirect()->route("admin.user.index")->with('message', 'Change password successfully');
             }
