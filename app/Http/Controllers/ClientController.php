@@ -25,7 +25,6 @@ class ClientController extends Controller
       return redirect()->route("client.home");
     }
     if ($course) {
-      dd($course->DesCourse->description);
       return view("clients.course_detail", [
         'course' => $course,
         'pageTitle' => $course->name,
