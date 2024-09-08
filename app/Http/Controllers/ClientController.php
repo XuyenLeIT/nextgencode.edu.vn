@@ -29,7 +29,7 @@ class ClientController extends Controller
         'course' => $course,
         'pageTitle' => $course->name,
         'pageDescription' => $course->DesCourse->description,
-        'pageImage' => $course->thumbnail,
+        'pageImage' => "https://www.nextgencode.edu.vn".$course->thumbnail,
         'pageUrl' => url()->current(),
       ]);
 
