@@ -1,10 +1,10 @@
 @extends('layouts.client')
 <link rel="stylesheet" href="{{ asset('css/client/course.css') }}">
 @section('title', 'Home Page')
-<meta name="description" content="{{ $pageDescription }}">
 <meta property="og:title" content="{{ $pageTitle }}">
-<meta property="og:description" content="{{ $pageDescription }}">
-<meta property="og:image" content="{{ "https://www.nextgencode.edu.vn".$pageImage }}">
+<meta property="og:description"
+    content="Khám phá khóa học lập trình chuyên sâu với các kỹ năng từ cơ bản đến nâng cao, giúp bạn nắm vững các công nghệ và công cụ hiện đại. Tham gia ngay để mở rộng cơ hội nghề nghiệp và phát triển bản thân trong lĩnh vực lập trình">
+<meta property="og:image" content="{{ 'https://www.nextgencode.edu.vn' . $pageImage }}">
 <meta property="og:url" content="{{ $pageUrl }}">
 <meta property="og:type" content="website">
 @section('content')
@@ -112,11 +112,11 @@
                     @endforeach
                 </div>
                 <button type="button"
-                class="btn-register btn btn-primary d-flex m-auto mt-3 animate__animated animate__shakeX"
-                data-bs-toggle="modal" data-bs-target="#myModal">
-                Đăng ký khóa học này
-            </button>
-            </div>            
+                    class="btn-register btn btn-primary d-flex m-auto mt-3 animate__animated animate__shakeX"
+                    data-bs-toggle="modal" data-bs-target="#myModal">
+                    Đăng ký khóa học này
+                </button>
+            </div>
             <!-- The Modal -->
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-lg">
@@ -231,8 +231,8 @@
                     btnCloseFooter.removeAttribute("disabled");
                     if (err.response.status == 400) {
                         let errors = err.response.data.errors;
-                        console.log("errors: ",errors);
-                        
+                        console.log("errors: ", errors);
+
                         errors.forEach(error => {
                             let errorMessage = document.getElementById(`error-${error.field}`);
                             if (errorMessage) {
