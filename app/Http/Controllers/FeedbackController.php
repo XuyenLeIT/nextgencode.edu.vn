@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Feedback;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 class FeedbackController extends Controller
 {
     //client
@@ -31,17 +30,21 @@ class FeedbackController extends Controller
             'name' => 'required',
             'content' => 'required',
         ]);
-        if ($request->hasFile('avatar')) {
-            $fileAvatar = uniqid() . '.' . $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('public/feedbackImages', $fileAvatar);
+        try {
+            if ($request->hasFile('avatar')) {
+                $fileAvatar = uniqid() . '.' . $request->avatar->getClientOriginalName();
+                $request->image->move(public_path("feedbackImages"), $fileAvatar);
+            }
+            Feedback::create([
+                'avatar' => '/feedbackImages/' . $fileAvatar,
+                'status' => $request->status,
+                'name' => $request->name,
+                'content' => $request->content
+            ]);
+            return redirect()->route('admin.feedback.index')->with('success', 'Feedback created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        Feedback::create([
-            'avatar' => '/storage/feedbackImages/' . $fileAvatar,
-            'status' => $request->status,
-            'name' => $request->name,
-            'content' => $request->content
-        ]);
-        return redirect()->route('admin.feedback.index')->with('success', 'Feedback created successfully.');
     }
     public function edit($id)
     {
@@ -55,33 +58,37 @@ class FeedbackController extends Controller
             'name' => 'required',
             'content' => 'required',
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        if ($request->hasFile('avatar')) {
-            $fileAvatar = uniqid() . '.' . $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('public/feedbackImages', $fileAvatar);
-            $avatarPath = '/storage/feedbackImages/' . $fileAvatar;
-            $avatarPathDelete = str_replace('storage', 'public', $request->avatarExisting);
-            if (Storage::exists($avatarPathDelete)) {
-                Storage::delete($avatarPathDelete);
+        try {
+            // Kiểm tra xem checkbox có được chọn hay không
+            if ($request->hasFile('avatar')) {
+                $fileAvatar = uniqid() . '.' . $request->avatar->getClientOriginalName();
+                $request->avatar->move(public_path("feedbackImages"), $fileAvatar);
+                $avatarPath = '/feedbackImages/' . $fileAvatar;
+                $imagePath = public_path($request->avatarExisting);
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            } else {
+                $avatarPath = $request->avatarExisting;
             }
-        } else {
-            $avatarPath = $request->avatarExisting;
+            $feed->update([
+                'avatar' => $avatarPath,
+                'status' => $request->status,
+                'name' => $request->name,
+                'content' => $request->content
+            ]);
+            return redirect()->route('admin.feedback.index')->with('success', 'Feedback updated successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('info', 'Opp error serve.');
         }
-        $feed->update([
-            'avatar' => $avatarPath,
-            'status' => $request->status,
-            'name' => $request->name,
-            'content' => $request->content
-        ]);
-        return redirect()->route('admin.feedback.index')->with('success', 'Feedback updated successfully.');
     }
     public function delete($id)
     {
         $feedback = Feedback::find($id);
         if ($feedback != null) {
-            $avatarPath = str_replace('storage', 'public', $feedback->avatar);
-            if (Storage::exists($avatarPath)) {
-                Storage::delete($avatarPath);
+            $imagePath = public_path($feedback->avatar);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
             }
             $feedback->delete();
 

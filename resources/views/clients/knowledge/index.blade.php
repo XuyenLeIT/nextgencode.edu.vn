@@ -15,7 +15,7 @@
                                 <p class="know-des">{{ $item->sort_content }}</p>
                                 <p class="know-date">{{ $item->created_at }}</p>
                             </div>
-                            <img class="know-image" src="/{{ $item->thumbnail }}" />
+                            <img class="know-image" src="{{ $item->thumbnail }}" />
                         </div>
                     </a>
                 @endforeach
