@@ -6,10 +6,7 @@
     align-items: center;
     background: white;
 }
-.back-home{
-    color: transparent;
-    text-decoration: none !important;
-}
+
 .logo-container {
     display: flex;
     justify-content: center;
