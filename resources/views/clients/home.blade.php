@@ -23,18 +23,16 @@
                             <div class="course__item">
                                 <img class="course_image" src="{{ $item->thumbnail }}" />
                                 <p class="course__name fw-bold">{{ $item->name }}</p>
-                                <p class="course__start-title">Ngay Khai giang</p>
+                                <p class="course__start-title">Ngày khai giảng</p>
                                 <p class="course__start-date">{{ $item->status ? $item->startDate : 'đang cập nhật...' }}
                                 </p>
                                 <div class="course__start__typeLearn text-start mb-2">
                                     <span class="badge bg-success">{{ $item->typeLearn ? 'Online' : 'Offline' }}</span>
                                 </div>
                                 @if ($item->status)
-                                    <a class="btn__view-course" href="{{ route('client.course', [$slug, $item->id]) }}">Xem
-                                        Khoa
-                                        hoc</a>
+                                    <a class="btn__view-course" href="{{ route('client.course', [$slug, $item->id]) }}">Xem khóa học</a>
                                 @else
-                                    <a class="btn__view-course-disable">Xem Khoa hoc</a>
+                                    <a class="btn__view-course-disable">Xem khóa học</a>
                                 @endif
 
                             </div>

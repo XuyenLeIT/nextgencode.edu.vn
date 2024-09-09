@@ -123,7 +123,7 @@
                     <div class="loading_none">
                         <button class="btn btn-success" type="button" disabled>
                             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                            Hệ thống đang xử lý...
+                            Hệ thống đang xử lý vui lòng chờ nhé...
                         </button>
                     </div>
                     <div class="modal-content">
