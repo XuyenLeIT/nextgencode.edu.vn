@@ -303,7 +303,7 @@ class CourseController extends Controller
             // Kiểm tra xem checkbox có được chọn hay không
             $isActive = $request->has("status") ? true : false;
             $courseId = Session::get('courseId');
-            $maxStt = Course::where('course_id', $courseId)
+            $maxStt = ModuleCourse::where('course_id', $courseId)
                 ->max('stt');
             ModuleCourse::create([
                 'title' => $request->title,
