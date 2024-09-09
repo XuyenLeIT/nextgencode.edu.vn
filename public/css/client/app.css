@@ -7,7 +7,7 @@
     background: white;
 }
 .back-home{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .logo-container {
     display: flex;
