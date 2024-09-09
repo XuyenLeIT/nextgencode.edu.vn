@@ -333,8 +333,13 @@ class CourseController extends Controller
             // Kiểm tra xem checkbox có được chọn hay không
             $isActive = $request->has("status") ? true : false;
             $courseId = Session::get('courseId');
-            $checkStt = ModuleCourse::where('course_id', $courseId)
-                ->where('stt', $request->stt)
+            // $checkStt = ModuleCourse::where('course_id', $courseId)
+            //     ->where('stt', $request->stt)
+            //     ->exists();
+                $checkStt = ModuleCourse::where('course_id', $courseId)
+                ->where('stt',  $request->stt)
+                // Bỏ qua bản ghi hiện tại
+                ->where('id', '!=', $moduleCourse->id) 
                 ->exists();
             if ($checkStt) {
                 return back()->with("message", "trùng stt");
