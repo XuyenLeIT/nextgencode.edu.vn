@@ -37,10 +37,13 @@
         <div class="row">
             <div class="header fixed-top">
                 <div class="logo-container">
-                    <div class="logo">
-                        <span class="highlight">N</span>ext<span class="highlight">G</span>en<span
-                            class="highlight">C</span>ode
-                    </div>
+                    <a href="{{route("client.home")}}" class="back-home">
+                        <div class="logo">
+                            <span class="highlight">N</span>ext<span class="highlight">G</span>en<span
+                                class="highlight">C</span>ode
+                        </div>
+                    </a>
+                 
                 </div>
                 <div class="header__search">
                     <div class="header-menu">

@@ -6,13 +6,18 @@
     align-items: center;
     background: white;
 }
+.back-home{
+    text-decoration: none;
+}
 .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
 }
-
+.logo-container:hover{
+    cursor: pointer;
+}
 .logo {
     position: relative;
     padding: 2px 8px;
@@ -113,6 +118,9 @@ font-size: 20px;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    .logo-container{
+        display: none;
+    }
     .item-content{
        display: none;
     }

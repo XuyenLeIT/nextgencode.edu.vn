@@ -4,7 +4,7 @@
 <meta property="og:title" content="{{ $pageTitle }}">
 <meta property="og:description"
     content="Khám phá khóa học lập trình chuyên sâu với các kỹ năng từ cơ bản đến nâng cao, giúp bạn nắm vững các công nghệ và công cụ hiện đại. Tham gia ngay để mở rộng cơ hội nghề nghiệp và phát triển bản thân trong lĩnh vực lập trình">
-<meta property="og:image" content="{{ 'https://www.nextgencode.edu.vn' . $pageImage }}">
+<meta property="og:image" content="{{ 'https://www.nextgencode.edu.vn'.$pageImage }}">
 <meta property="og:url" content="{{ $pageUrl }}">
 <meta property="og:type" content="website">
 @section('content')
@@ -27,11 +27,11 @@
             </div>
         @endif
         @if ($course->achivesCourse->count() > 0)
-            <div class="achive-course row lazy-content">
+            <div class="achive-course lazy-content">
                 <h4 class="text-center mt-2 mb-2">HOÀN THÀNH KHÓA HỌC, BẠN SẼ NHẬN ĐƯỢC GÌ?</h4>
                 <div class="row gx-4 gy-3">
                     @foreach ($course->achivesCourse as $item)
-                        <div class="course__achive_item col-md-6">
+                        <div class="course__achive_item col-md-6 col-sm-12">
                             <div class="achive-item animate__animated animate__pulse">
                                 <h6>{{ $item->title }}</h6>
                                 <div class="achive-item-des">
