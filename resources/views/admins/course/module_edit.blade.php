@@ -5,7 +5,12 @@
 @section('content')
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.course.index', $moduleCourse->course_id) }}">Back to list</a>
-        <h1>Create form module course</h1>
+        @if (session('message'))
+        <div class="alert alert-success">
+            <strong>Success!</strong> {{session('message')}}
+          </div>
+        @endif
+        <h1>update form module course</h1>
         <form method="POST" action="{{ route('admin.moduleCourse.update', $moduleCourse) }}">
             @csrf
             <div class="mb-3 mt-3">

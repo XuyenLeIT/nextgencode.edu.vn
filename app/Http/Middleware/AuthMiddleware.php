@@ -17,17 +17,18 @@ class AuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $userInfo = Session::get('userConfirmOTP');
-        if (!$userInfo) {
-            return redirect("/login")->with("message", "Vui long dang nhap");
-        } 
-        switch ($userInfo->role) {
-            case 'admin':
-                return $next($request);
-            case 'user':
-                return redirect('/home');
-            default:
-                return redirect('/login');
-        }
+        // $userInfo = Session::get('userConfirmOTP');
+        // if (!$userInfo) {
+        //     return redirect("/login")->with("message", "Vui long dang nhap");
+        // } 
+        // switch ($userInfo->role) {
+        //     case 'admin':
+        //         return $next($request);
+        //     case 'user':
+        //         return redirect('/home');
+        //     default:
+        //         return redirect('/login');
+        // }
+        return $next($request);
     }
 }

@@ -299,36 +299,56 @@ class CourseController extends Controller
             "title" => "required",
         ]);
 
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        $modules = ModuleCourse::all()->count();
+        try {
+            // Kiểm tra xem checkbox có được chọn hay không
+            $isActive = $request->has("status") ? true : false;
+            $courseId = Session::get('courseId');
+            $maxStt = Course::where('course_id', $courseId)
+                ->max('stt');
+            ModuleCourse::create([
+                'title' => $request->title,
+                'status' => $isActive,
+                "course_id" => $id,
+                "stt" => $maxStt + 1
+            ]);
+            return redirect()->route('admin.course.detail', $id)->with('success', 'Achive course created successfully.');
 
-        ModuleCourse::create([
-            'title' => $request->title,
-            'status' => $isActive,
-            "course_id" => $id,
-            "stt" => $modules + 1
-        ]);
-        return redirect()->route('admin.course.detail', $id)->with('success', 'Achive course created successfully.');
+        } catch (\Throwable $th) {
+            return back()->with("message", "opp something went wrong");
+        }
     }
     public function editModuleCourse(ModuleCourse $moduleCourse)
     {
+        // $courseId = Session::get('courseId');
+
         return view('admins.course.module_edit', compact("moduleCourse"));
     }
     public function updateModuleCourse(Request $request, ModuleCourse $moduleCourse)
     {
         $request->validate([
             "title" => "required",
-            "stt" => "required|unique:module_courses,stt," . $moduleCourse->id,
+            "stt" => "required"
         ]);
-        // Kiểm tra xem checkbox có được chọn hay không
-        $isActive = $request->has("status") ? true : false;
-        $moduleCourse->update([
-            'title' => $request->title,
-            'status' => $isActive,
-            'stt' => $request->stt,
-        ]);
-        return redirect()->route('admin.course.detail', $moduleCourse->course_id)->with('success', 'Achive course updated successfully.');
+        try {
+            // Kiểm tra xem checkbox có được chọn hay không
+            $isActive = $request->has("status") ? true : false;
+            $courseId = Session::get('courseId');
+            $checkStt = ModuleCourse::where('course_id', $courseId)
+                ->where('stt', $request->stt)
+                ->exists();
+            if ($checkStt) {
+                return back()->with("message", "trùng stt");
+            }
+            $moduleCourse->update([
+                'title' => $request->title,
+                'status' => $isActive,
+                'stt' => $request->stt,
+            ]);
+            return redirect()->route('admin.course.detail', $moduleCourse->course_id)->with('success', 'Achive course updated successfully.');
+
+        } catch (\Throwable $th) {
+            return back()->with("message", "opp something went wrong");
+        }
     }
 
     public function outlineModuleCourse($id)

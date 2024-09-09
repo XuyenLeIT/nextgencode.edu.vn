@@ -5,6 +5,11 @@
 @section('content')
     <div class="container">
         <a class="btn btn-primary" href="{{ route('admin.course.index',$id) }}">Back to list</a>
+        @if (session('message'))
+        <div class="alert alert-success">
+            <strong>Success!</strong> {{session('message')}}
+          </div>
+        @endif
         <h1>Create form module course</h1>
         <form method="POST" action="{{ route('admin.moduleCourse.store',$id) }}">
             @csrf
