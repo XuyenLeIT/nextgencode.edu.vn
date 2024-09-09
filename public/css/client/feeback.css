@@ -78,16 +78,18 @@
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+
     .container-card .card-item {
-        height: 220px;
+        height: 230px;
+        margin-bottom: 30px;
+        margin-top: 20px;
     }
+
     .container-card .card-item:hover {
-        height: 250px;
         padding: 10px;
     }
     .container-card .card-item .feed-content {
         position: relative;
-        top: -110px;
     }
 
 }
