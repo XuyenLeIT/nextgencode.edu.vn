@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{ asset('css/root.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/client/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/root.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/client/app.css') }}">
 </head>
 
 <body>
@@ -37,13 +37,13 @@
         <div class="row">
             <div class="header fixed-top">
                 <div class="logo-container">
-                    <a href="{{route("client.home")}}" style="text-decoration: none">
+                    <a href="{{ route('client.home') }}" style="text-decoration: none">
                         <div class="logo">
                             <span class="highlight">N</span>ext<span class="highlight">G</span>en<span
                                 class="highlight">C</span>ode
                         </div>
                     </a>
-                 
+
                 </div>
                 <div class="header__search">
                     <div class="header-menu">
@@ -64,6 +64,14 @@
                                     <div class="item-content">
                                         <h4>{{ $item->title }}</h4>
                                         <p>{{ $item->description }}</p>
+                                        {{-- @dd($item->course->name) --}}
+                                        @if ($item->course_id != 0)
+                                            @php
+                                                $slug = Str::slug($item->course->name);
+                                            @endphp
+                                            <a class="btn btn-info" href="{{ route('client.course', [$slug, $item->course_id]) }}">Tìm hiểu thêm</a>
+                                        @endif
+
                                     </div>
 
                                     <img src="/{{ $item->image }}" class="image-carausel" alt="...">

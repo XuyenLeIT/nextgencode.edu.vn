@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string("title");
             $table->string("image");
             $table->string("description");
+            $table->unsignedBigInteger("course_id");
             $table->boolean("status");
             $table->timestamps();
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
         });
     }
 

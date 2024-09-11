@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carausel;
+use App\Models\Course;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class CarauselController extends Controller
 
     public function create()
     {
-        return view('admins.carausel.create');
+        $courses = Course::all();
+        return view('admins.carausel.create',compact("courses"));
     }
 
     public function store(Request $request)
@@ -36,6 +38,7 @@ class CarauselController extends Controller
                     'title' => $request->title,
                     'description' => $request->description,
                     'status' => $isActive,
+                    'course_id' => $request->course_id,
                     'image' => 'carauselImages/' . $filename,
                 ]);
             }

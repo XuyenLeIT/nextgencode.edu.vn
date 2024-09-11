@@ -36,6 +36,12 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <select class="form-select" name="course_id">
+                <option value="0">--Choose course--</option>
+                @foreach ($courses as $item)
+                    <option value="{{$item->id}}" {{old('course_id')==($item->id)?'selected':''}}>{{$item->name}}</option>
+                @endforeach
+            </select>
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Status:</label>
                 <div class="form-check">

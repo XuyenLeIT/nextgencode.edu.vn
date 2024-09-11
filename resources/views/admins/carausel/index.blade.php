@@ -15,6 +15,7 @@
                     <th>Id</th>
                     <th>Title</th>
                     <th>Image</th>
+                    <th>Course</th>
                     <th width="20%">Description</th>
                     <th>Status</th>
                     <th>Actions</th>
@@ -31,7 +32,9 @@
                             @endif
                         </td>
                         <td><span class="des-know">{{ $item->description }}</span></td>
-                       
+                        <td>
+                            {{ $item->course_id }}
+                        </td>
                         <td>
                             {{ $item->status }}
                         </td>
