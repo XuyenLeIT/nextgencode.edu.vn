@@ -147,7 +147,8 @@
                                                         href="{{ route('admin.achiveCourse.edit', $item->id) }}"><i
                                                             class="fa-solid fa-pen-to-square"></i></a>
                                                     <a class="btn btn-danger"
-                                                        href="{{ route('admin.achiveCourse.delete', $item->id) }}"><i class="fa-solid fa-trash"></i></a>
+                                                        href="{{ route('admin.achiveCourse.delete', $item->id) }}"><i
+                                                            class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -198,6 +199,13 @@
                                                     <a class="btn btn-info"
                                                         href="{{ route('admin.moduleOutline', $item->id) }}?course={{ $item->course_id }}"><i
                                                             class="fa-solid fa-sitemap"></i></a>
+                                                    @if ($item->outlines()->count() == 0)
+                                                        <a class="btn btn-danger"
+                                                            href="{{ route('admin.moduleCourse.delete', $item->id) }}?course={{ $item->id }}"><i
+                                                                class="fa-solid fa-trash"></i></a>
+                                                    @endif
+
+
                                                 </td>
                                             </tr>
                                         @endforeach

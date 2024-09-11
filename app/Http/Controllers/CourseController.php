@@ -80,7 +80,8 @@ class CourseController extends Controller
             $achivesCourse = $course->achivesCourse;
             $students = User::where("course_id", $id)->get();
             $modulesCourse = $course->modulesCourse->sortBy('stt');
-            $checkReference = ($course->achivesCourse()->exists() || $course->achivesCourse()->exists());
+            $checkReference = $course->achivesCourse()->exists();
+            // Kiểm tra nếu bảng con không chứa dữ liệu liên quan
             return view(
                 'admins.course.detail',
                 compact('course', "id", 'whoCourse', 'achivesCourse', 'modulesCourse', 'checkReference', 'students', 'desCourse')
@@ -348,10 +349,10 @@ class CourseController extends Controller
             // $checkStt = ModuleCourse::where('course_id', $courseId)
             //     ->where('stt', $request->stt)
             //     ->exists();
-                $checkStt = ModuleCourse::where('course_id', $courseId)
-                ->where('stt',  $request->stt)
+            $checkStt = ModuleCourse::where('course_id', $courseId)
+                ->where('stt', $request->stt)
                 // Bỏ qua bản ghi hiện tại
-                ->where('id', '!=', $moduleCourse->id) 
+                ->where('id', '!=', $moduleCourse->id)
                 ->exists();
             if ($checkStt) {
                 return back()->with("message", "trùng stt");
@@ -367,7 +368,16 @@ class CourseController extends Controller
             return back()->with("message", "opp something went wrong");
         }
     }
-
+    public function deleteModuleCourse($id)
+    {
+        // $courseId = Session::get('courseId');
+        $module = ModuleCourse::find($id);
+        if ($module != null) {
+            $module->delete();
+            return back()->with("message", "delete module successfully");
+        }
+        return back()->with("message", "opp something went wrong");
+    }
     public function outlineModuleCourse($id)
     {
         $outlines = OutlineModule::where('module_id', $id)->get();

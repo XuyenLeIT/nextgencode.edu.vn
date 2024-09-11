@@ -47,6 +47,8 @@ Route::prefix('admin')->middleware(AuthMiddleware::class)->group(function () {
     Route::post('/course/module/create/{id}', [CourseController::class, "storeModuleCourse"])->name("admin.moduleCourse.store");
     Route::get('/course/module/edit/{moduleCourse}', [CourseController::class, "editModuleCourse"])->name("admin.moduleCourse.edit");
     Route::post('/course/module/edit/{moduleCourse}', [CourseController::class, "updateModuleCourse"])->name("admin.moduleCourse.update");
+    Route::get('/course/module/delete/{id}', [CourseController::class, "deleteModuleCourse"])->name("admin.moduleCourse.delete");
+    
     //outline
     Route::get('/course/detail/{id}/outline', [CourseController::class, "outlineModuleCourse"])->name("admin.moduleOutline");
     Route::get('/course/outline/create', [CourseController::class, "createOutlineModuleCourse"])->name("admin.moduleOutline.create");
