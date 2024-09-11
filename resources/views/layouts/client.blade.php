@@ -74,7 +74,7 @@
 
                                     </div>
 
-                                    <img src="/{{ $item->image }}" class="image-carausel" alt="...">
+                                    <img src="{{ $item->image }}" class="image-carausel" alt="...">
                                 </div>
                             </div>
                         @endif

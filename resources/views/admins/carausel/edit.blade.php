@@ -31,7 +31,7 @@
             <div class="mb-3 mt-3">
                 <label for="image" class="form-label">Current Image:</label>
                 <input type="hidden" value="{{ $carausel->image }}" name="imageExisting">
-                <img src="/{{ $carausel->image }}" width="100" class="thumbnail" />
+                <img src="{{ $carausel->image }}" width="100" class="thumbnail" />
             </div>
             <div class="mb-3 mt-3">
                 <label for="description" class="form-label">Description:</label>
@@ -40,6 +40,12 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <select class="form-select" name="course_id">
+                <option value="0" {{old('course_id',$carausel->course_id)==0?'selected':''}}>--Choose course--</option>
+                @foreach ($courses as $item)
+                    <option value="{{$item->id}}" {{old('course_id',$carausel->course_id)==($item->id)?'selected':''}}>{{$item->name}}</option>
+                @endforeach
+            </select>
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Status:</label>
                 <div class="form-check">

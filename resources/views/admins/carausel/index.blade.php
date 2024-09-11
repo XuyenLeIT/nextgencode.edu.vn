@@ -31,10 +31,10 @@
                                 <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" width="100">
                             @endif
                         </td>
-                        <td><span class="des-know">{{ $item->description }}</span></td>
                         <td>
                             {{ $item->course_id }}
                         </td>
+                        <td><span class="des-know">{{ $item->description }}</span></td>
                         <td>
                             {{ $item->status }}
                         </td>

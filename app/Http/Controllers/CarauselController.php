@@ -50,7 +50,8 @@ class CarauselController extends Controller
     public function edit($id)
     {
         $carausel = Carausel::find($id);
-        return view('admins.carausel.edit', compact('carausel'));
+        $courses = Course::all();
+        return view('admins.carausel.edit', compact('carausel','courses'));
     }
 
     public function update(Request $request, Carausel $carausel)
@@ -78,6 +79,7 @@ class CarauselController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'status' => $request->status,
+                'course_id' => $request->course_id,
                 'image' => $image
             ]);
             return redirect()->route('admin.carausel.index')->with('success', 'carausel updated successfully.');
