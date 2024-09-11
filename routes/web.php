@@ -39,6 +39,7 @@ Route::prefix('admin')->middleware(AuthMiddleware::class)->group(function () {
     Route::post('/course/who/create', [CourseController::class, "createWhoCourse"])->name("admin.whoCourse.create");
     Route::post('/course/who/update/{whoCourse}', [CourseController::class, "updateWhoCourse"])->name("admin.whoCourse.update");
     Route::get('/course/achive/create/{id}', [CourseController::class, "createAchiveCourse"])->name("admin.achiveCourse.create");
+    Route::get('/course/achive/delete/{id}', [CourseController::class, "deleteAchiveCourse"])->name("admin.achiveCourse.delete");
     Route::post('/course/achive/create/{id}', [CourseController::class, "storeAchiveCourse"])->name("admin.achiveCourse.store");
     Route::get('/course/achive/edit/{achiveCourse}', [CourseController::class, "editAchiveCourse"])->name("admin.achiveCourse.edit");
     Route::post('/course/achive/edit/{achiveCourse}', [CourseController::class, "updateAchiveCourse"])->name("admin.achiveCourse.update");

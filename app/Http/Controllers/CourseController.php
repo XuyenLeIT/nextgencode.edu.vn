@@ -288,6 +288,18 @@ class CourseController extends Controller
             return redirect()->back()->with('info', 'Opp error serve.');
         }
     }
+    public function deleteAchiveCourse($id)
+    {
+        $achive = AchiveCourse::find($id);
+        if ($achive != null) {
+            $imagePath = public_path($achive->thumbnail);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+            $achive->delete();
+        }
+        return back()->with("success", "delete achive successfully");
+    }
     //ModuleCourse
     public function createModuleCourse($id)
     {

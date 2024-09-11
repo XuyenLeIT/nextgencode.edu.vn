@@ -29,6 +29,6 @@ class AuthMiddleware
             default:
                 return redirect('/login');
         }
-        // return $next($request);
+        //  return $next($request);
     }
 }

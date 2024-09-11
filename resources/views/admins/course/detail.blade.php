@@ -146,6 +146,8 @@
                                                     <a class="btn btn-warning"
                                                         href="{{ route('admin.achiveCourse.edit', $item->id) }}"><i
                                                             class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a class="btn btn-danger"
+                                                        href="{{ route('admin.achiveCourse.delete', $item->id) }}"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
