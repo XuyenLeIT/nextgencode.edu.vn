@@ -25,21 +25,19 @@ class CarauselController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,,webp,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
             'description' => 'required',
         ]);
         try {
-            // Kiểm tra xem checkbox có được chọn hay không
-            $isActive = $request->has("status") ? true : false;
             if ($request->hasFile('image')) {
                 $filename = uniqid() . '.' . $request->image->getClientOriginalName();
                 $request->image->move(public_path("carauselImages"), $filename);
                 Carausel::create([
                     'title' => $request->title,
                     'description' => $request->description,
-                    'status' => $isActive,
+                    'status' => $request->status,
                     'course_id' => $request->course_id,
-                    'image' => 'carauselImages/' . $filename,
+                    'image' => '/carauselImages/' . $filename,
                 ]);
             }
             return redirect()->route('admin.carausel.index')->with('success', 'carausel created successfully.');
@@ -58,12 +56,11 @@ class CarauselController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'description' => 'required',
         ]);
         try {
             // Kiểm tra xem checkbox có được chọn hay không
-            // $isActive = $request->has("status") ? true : false;
             if ($request->hasFile('image')) {
                 $existingImagePath = public_path($carausel->image);
                 if (File::exists($existingImagePath)) {
@@ -71,7 +68,7 @@ class CarauselController extends Controller
                 }
                 $filename = uniqid() . '.' . $request->image->getClientOriginalName();
                 $request->image->move(public_path("carauselImages"), $filename);
-                $image = 'carauselImages/' . $filename;
+                $image = '/carauselImages/' . $filename;
             } else {
                 $image = $request->imageExisting;
             }
@@ -84,7 +81,7 @@ class CarauselController extends Controller
             ]);
             return redirect()->route('admin.carausel.index')->with('success', 'carausel updated successfully.');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('info', 'Opp error serve.');
+            return redirect()->back()->with('info', 'Opp error serve.'.$th);
         }
     }
     public function delete($id)
