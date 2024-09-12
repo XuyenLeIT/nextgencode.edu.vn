@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h4 class="fb-title">Feeback học viên về NextGenCode</h4>
+        <h4 class="fb-title">Feedback học viên về NextGenCode</h4>
         <div class="row gx-2 container-feed lazy-content">
             @foreach ($feedbacks as $item)
             <div class="col-lg-4 col-md-6 col-sm-12">
