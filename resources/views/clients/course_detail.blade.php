@@ -48,7 +48,7 @@
             <div class="sumarize-time">
                 <div class="time-month">
                     <span><i class="fa-solid fa-clock"></i></span>
-                    <span>Thời lượng:
+                    <span><span class="d-sm-none">Thời lượng: </span>
                         {{ $course->duration * $course->dayweek * 4 * $course->hourday }}h({{ $course->duration }}
                         tháng)</span>
                 </div>
