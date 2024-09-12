@@ -1,6 +1,6 @@
 @extends('layouts.client')
 <link rel="stylesheet" href="{{ asset('css/client/feeback.css') }}">
-@section('title', 'Home Page')
+@section('title', 'Feedback')
 
 @section('content')
     <div class="container">

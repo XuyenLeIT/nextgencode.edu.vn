@@ -1,6 +1,6 @@
 @extends('layouts.client')
 <link rel="stylesheet" href="{{ asset('css/client/knowledge.css') }}">
-@section('title', 'Home Page')
+@section('title', 'Knowledge')
 
 @section('content')
     <div class="container knowledge">
