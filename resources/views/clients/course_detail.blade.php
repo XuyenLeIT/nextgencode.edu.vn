@@ -48,17 +48,19 @@
             <div class="sumarize-time">
                 <div class="time-month">
                     <span><i class="fa-solid fa-clock"></i></span>
-                    <span><span class="d-none d-sm-block">Thời lượng: </span>
-                        {{ $course->duration * $course->dayweek * 4 * $course->hourday }}h({{ $course->duration }}
+                    <span class="title-time">Thời lượng: </span>
+                    <span>{{ $course->duration * $course->dayweek * 4 * $course->hourday }}h({{ $course->duration }}
                         tháng)</span>
                 </div>
                 <div class="time-week">
                     <span><i class="fa-solid fa-calendar-days"></i></span>
-                    <span> <span class="d-none d-sm-block">Thời gian học: </span> {{ $course->dayweek }} buổi/tuần</span>
+                   <span class="title-time">Thời gian học: </span>
+                   <span>{{ $course->dayweek }} buổi/tuần</span>
                 </div>
                 <div class="quantity-student">
                     <span><i class="fa-solid fa-people-group"></i></span>
-                    <span><span class="d-none d-sm-block">Số lượng học viên:</span> {{ $course->stunumber }}</span>
+                    <span class="title-time">Số lượng học viên: </span> 
+                    <span>{{ $course->stunumber }}</span>
                 </div>
             </div>
         </div>
