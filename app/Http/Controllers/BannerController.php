@@ -27,7 +27,7 @@ class BannerController extends Controller
             'title' => 'required',
             'startDate' => 'required',
             'promotion' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,,webp,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,webp,jpg,gif|max:2048',
             'sortContent' => 'required',
         ]);
         try {
@@ -61,7 +61,7 @@ class BannerController extends Controller
             'title' => 'required',
             'startDate' => 'required',
             'promotion' => 'required',
-            'image' => 'image|mimes:jpeg,png,,webp,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,webp,jpg,gif|max:2048',
             'sortContent' => 'required',
             'course_id' => 'required',
         ]);
