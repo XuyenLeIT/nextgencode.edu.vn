@@ -21,7 +21,7 @@
                     <img class="course-img" src="{{ $course->whoCourse->thumbnail }}" />
                 </div>
                 <div class="col-md-8">
-                    <h4 class="animate__animated animate__backInDown">PHÙ HỢP CHO NHỮNG NGƯỜI HỌC TỪ ĐẦU</h4>
+                    <h4 class="animate__animated animate__backInDown">KHÓA HỌC PHÙ HỢP VỚI AI?</h4>
                     <p>{!! $course->whoCourse->description !!}</p>
                 </div>
             </div>

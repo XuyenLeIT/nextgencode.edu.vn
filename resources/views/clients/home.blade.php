@@ -77,7 +77,7 @@
                                     <div class="know-item">
                                         <img class="know-image" src="{{ $item->thumbnail }}" />
                                         <p class="know-title">{{ $item->title }}</p>
-                                        <p class="know-date">2024-10-10</p>
+                                        <p class="know-date">{{ $item->updated_at }}</p>
                                         <p class="know-des">{{ $item->sort_content }}</p>
                                     </div>
                                 </a>
