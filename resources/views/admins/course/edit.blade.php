@@ -11,7 +11,8 @@
           </div>
         @endif
         <h1>Update form course</h1>
-        <form method="POST" action="{{ route('admin.course.update', $course) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.course.update', $course) }}"
+             enctype="multipart/form-data">
             @csrf
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label">Name:</label>

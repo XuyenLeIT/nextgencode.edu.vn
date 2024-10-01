@@ -110,24 +110,28 @@ class CourseController extends Controller
             "class" => 'required'
 
         ]);
-
+        // dd($request->all());
         try {
             $fileLetterUpdate = "";
             $fileThumnailUpdate = "";
             if ($request->hasFile('thumbnail')) {
-                $fileThumnail = uniqid() . '.' . $request->thumbnail->getClientOriginalName();
-                $request->thumbnail->move(public_path("courseImages"), $fileThumnail);
-                $fileThumnailUpdate = "/courseImages/" . $fileThumnail;
-                $imagePath = public_path($request->thumbnailExisting);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
+
+                  // Tạo tên tệp ảnh độc nhất
+                  $filename = uniqid() . '.' . $request->thumbnail->getClientOriginalExtension();
+                  // Lưu ảnh vào thư mục 'public/knowImages'
+                  $request->thumbnail->move(public_path("courseImages"), $filename);
+                  $fileThumnailUpdate = "/courseImages/" . $filename;
+                  $imagePath = public_path($request->thumbnailExisted);
+                  if (File::exists($imagePath)) {
+                      File::delete($imagePath);
+                  }
             } else {
                 $fileThumnailUpdate = $request->thumbnailExisting;
             }
             if ($request->hasFile('letter')) {
                 $fileLetter = uniqid() . '.' . $request->letter->getClientOriginalName();
-                $request->thumbnail->move(public_path("courseLetters"), $fileLetter);
+                // dd($fileLetter);
+                $request->letter->move(public_path("courseLetters"), $fileLetter);
                 $fileLetterUpdate = "/courseLetters/" . $fileLetter;
                 $imagePath = public_path($request->letterExisting);
                 if (File::exists($imagePath)) {
