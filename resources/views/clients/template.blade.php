@@ -21,7 +21,7 @@
                     tôi hy vọng rằng khóa học sẽ mang lại nhiều kiến thức bổ ích và trải nghiệm tuyệt vời cho Quý học
                     viên.</p>
                 <p>Trân trọng,</p>
-                <p>Xuyên Lê CoderX</p>
+                <p>Xuyên Lê NextGenCode</p>
             </div>
 
         </div>

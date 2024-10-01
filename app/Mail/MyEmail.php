@@ -31,7 +31,7 @@ class MyEmail extends Mailable
         $subjectName = "ĐĂNG KÝ THÀNH CÔNG KHÓA HỌC_".Str::upper($this->course->name) ." TẠI CODERX"; 
         $fromEmail = env('MAIL_FROM_ADDRESS');
         return new Envelope(
-            from: new Address($fromEmail, 'CoderX'),
+            from: new Address($fromEmail, 'NextGenCode'),
             subject: $subjectName,
         );
     }
