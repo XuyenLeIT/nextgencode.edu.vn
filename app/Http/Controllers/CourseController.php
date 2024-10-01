@@ -430,11 +430,39 @@ class CourseController extends Controller
             "title" => "required",
             "description" => "required"
         ]);
-        // dd($request->all());
+       // Xử lý nội dung editor
+       $description = $request->input('description');
+       // Làm sạch HTML
+       $description = $this->cleanHtml($description);
+       $dom = new DOMDocument('1.0', 'UTF-8');
+       libxml_use_internal_errors(true); // Bỏ qua các lỗi không quan trọng
+
+       // Tải HTML vào DOMDocument
+       $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+       libxml_clear_errors(); // Xóa các lỗi đã xảy ra
+       // Xử lý các ảnh base64 trong nội dung
+       $images = $dom->getElementsByTagName('img');
+       foreach ($images as $img) {
+           $src = $img->getAttribute('src');
+           // Chỉ xử lý ảnh base64
+           if (preg_match('/^data:image\/(\w+);base64,/', $src)) {
+               $data = substr($src, strpos($src, ',') + 1);
+               $data = base64_decode($data);
+               $image_name = time() . '_' . uniqid() . '.png';
+               $path = public_path('knowledgesImages/' . $image_name);
+               // Lưu file vào storage
+               file_put_contents($path, $data);
+               // Cập nhật đường dẫn ảnh trong nội dung
+               $img->removeAttribute('src');
+               $img->setAttribute('src', '/knowledgesImages/' . $image_name);
+           }
+       }
+       $description = $dom->saveHTML();
+
         $outline->update([
             'title' => $request->title,
             'status' => $request->status,
-            'description' => $request->description,
+            'description' => $description,
             "module_id" => $moduleId
         ]);
         return redirect()->route('admin.moduleOutline', $moduleId)->with('success', 'outline course updated successfully.');

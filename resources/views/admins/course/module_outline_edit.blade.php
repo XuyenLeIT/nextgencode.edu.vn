@@ -36,13 +36,23 @@
                     <p class="text-danger">{$message}</p>
                 @enderror
             </div>
+            <input type="hidden" name="deleted_images" id="deleted_images">
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    <script>
+     <script>
         $('#description').summernote({
             tabsize: 2,
-            height: 300
+            height: 300,
+            callbacks: {
+                onMediaDelete: function(target) {
+                    let deletedImages = $('#deleted_images').val();
+                    deletedImages = deletedImages ? JSON.parse(deletedImages) : [];
+                    console.log("target[0].src: ",target[0].src);
+                    deletedImages.push(target[0].src);
+                    $('#deleted_images').val(JSON.stringify(deletedImages));
+                }
+            }
         });
     </script>
 @endsection

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('outline_modules', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("description");
+            $table->text("description");
             $table->boolean("status");
             $table->unsignedBigInteger("module_id");
             $table->timestamps();

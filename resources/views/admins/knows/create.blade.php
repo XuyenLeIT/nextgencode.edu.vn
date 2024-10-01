@@ -52,6 +52,5 @@
             height: 300
         });
         let markupStr = $('#summernote').summernote('code');
-        console.log("markupStr: ", markupStr);
     </script>
 @endsection
